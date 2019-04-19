@@ -5,4 +5,4 @@ git add *
 echo "Commit message?"
 read msgToSend
 git commit -m '($msgToSend)'
-git push -u origin '($branch)'
+git push -u origin $branch
