@@ -1,0 +1,9 @@
+#!/bin/bash
+mycounter="y"
+while [ "$mycounter" == "y" ];
+do 
+read lineForFile
+echo $lineForFile >> Database/information
+echo "Continue? (y/n)"
+read mycounter
+done
