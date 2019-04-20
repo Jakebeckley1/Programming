@@ -47,7 +47,7 @@ else:
 
     response = input("Will you accept the offer? (Y/N) ")
     if response == "Y" or response == "y" or response == "Yes" or response == "yes":
-        
+
         shiitakeCurrent = shiitakeFound - shiitakeTrade
         portobelloCurrent = portobelloFound - portobelloTrade
     else:

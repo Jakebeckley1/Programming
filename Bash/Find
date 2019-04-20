@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "Searching for..."
+echo "a name? (y/n)"
+read firstChoice
+if [ $firstChoice = "y" ]
+then
+    echo "Name: "
+    read name
+    nameLine=$(egrep $name Database/information)
+    nameLine=$( echo $nameLine | awk '{print $2;}')
+    echo "ID =" $nameLine
+else
+    echo "ID: "
+    read identifier
+    idLine=$(grep $identifier Database/information)
+    idLine=$( echo $idLine | awk '{print $1;}')
+    echo $idLine
+    fi

@@ -1,6 +1,10 @@
 #!/bin/bash
-echo "What name to replace?"
-read nameToReplace
-echo "What new name?"
-read newName
-sed -i "s/$nameToReplace/$newName/g" "Database/information"
+echo "Insert line: "
+mycounter="y"
+while [ "$mycounter" == "y" ];
+do
+read lineForFile
+echo $lineForFile >> Database/information
+echo "Continue? (y/n)"
+read mycounter
+done
