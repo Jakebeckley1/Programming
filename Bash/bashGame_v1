@@ -1,0 +1,80 @@
+#!/bin/bash
+
+#Color declaration
+BLUE='\033[0;34m'
+GRAY='\033[1;30m'
+NC='\033[0m'
+
+# Game Introduction
+echo -e "${GRAY}Starting stats:${NC}"
+echo -e "${BLUE}---------------------------------------------"
+echo -e "${GRAY}Health ---------------> 100$"
+echo "Weapon Strength ------>  400"
+echo -e "Weapon Damage -------->  25${NC}"
+# Establishing starting values
+health=100
+weaponStrength=400
+weaponDamage=25
+# Initial Prompt
+echo -e "---------------------------------------------"
+echo -e "${GRAY}What is your name? "
+read nameInput
+echo "Welcome," $nameInput, "to bashGame_v1"
+echo "You are walking one day and reach a fork in the road. "
+echo "Do you go right (1) or left (2)? "
+read firstPrompt
+if [ $firstPrompt = "1" ]
+then
+  echo "You have chosen to go right"
+  echo "You are attacked by an armed bandit!"
+  echo "He strikes first and your health decreases by 20. Type 'stats' to see your current stats, or press enter to continue"
+  health=$(expr $health - 20)
+  read statInput
+  if [ $statInput = "stats" ]
+  then
+    echo "Health: " $health
+    echo "Weapon Damage: " $weaponDamage
+    echo "Weapon Strenth: " $weaponStrength
+  fi
+  echo "Do you run (1) or stay and fight (2)?"
+  read stayOrFight
+  if [ $stayOrFight = "1" ]
+  then
+    echo "You are hit a second time as you run away, dealing 20 additional damage"
+    health=$(expr $health - 20)
+  else
+    selector=1
+    enemyHealth=100
+    while [ "$health" -gt 0 -o "$selector" -eq 1 ]
+    do
+      echo "Would you like to attack? (y/n)"
+      read attackChoice
+      if [ $attackChoice = "y" ]
+      then
+        randInteger=$(( ( RANDOM % 5 ) + 1 ))
+        if [ $randInteger = 5 -o $randInteger = 3 ]
+        then
+          $damageTurn=$(expr $weaponDamage * 2)
+          enemyHealth=$(expr $enemyHealth - $damageTurn)
+          echo "You attack, dealing" $damageTurn
+          echo "You got a critical hit!"
+          echo "Enemy health is" $enemyHealth
+          if [ $enemyHealth <= "0" ]
+          then
+            selector=2
+          fi
+        else
+          $damageTurn="$($weaponDamage)"
+          ((enemyHealth-=$damageTurn))
+          echo "You attack, dealing" $damageTurn
+          echo "Enemy health is" $enemyHealth
+        fi
+        selector=2
+      else
+        selector=2
+      fi
+    done
+  fi
+else
+  echo "You have chosen to go left"
+fi
